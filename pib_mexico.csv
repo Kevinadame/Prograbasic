@@ -1,0 +1,86 @@
+pais,anio,PIB_USD
+Mexico,2023,1789114434843.46
+Mexico,2022,1464312692331.58
+Mexico,2021,1316569466932.59
+Mexico,2020,1121064767261.88
+Mexico,2019,1304106203694.81
+Mexico,2018,1256300182879.73
+Mexico,2017,1190721475906.0
+Mexico,2016,1112233497452.7
+Mexico,2015,1213294467716.88
+Mexico,2014,1364507717614.13
+Mexico,2013,1327436290282.67
+Mexico,2012,1255110424817.79
+Mexico,2011,1229013703416.76
+Mexico,2010,1105424238731.09
+Mexico,2009,943437415024.633
+Mexico,2008,1161553459715.1
+Mexico,2007,1102355554971.95
+Mexico,2006,1020265057882.01
+Mexico,2005,917571853529.104
+Mexico,2004,819459227375.022
+Mexico,2003,765549967703.273
+Mexico,2002,810666116505.478
+Mexico,2001,796064590656.176
+Mexico,2000,742061329643.37
+Mexico,1999,631249359702.389
+Mexico,1998,557461102630.658
+Mexico,1997,523449530464.257
+Mexico,1996,432157945024.428
+Mexico,1995,380157469866.849
+Mexico,1994,553618247900.74
+Mexico,1993,530160763983.506
+Mexico,1992,363157832923.734
+Mexico,1991,313139656145.745
+Mexico,1990,261253675692.838
+Mexico,1989,221403098266.77
+Mexico,1988,181611150496.787
+Mexico,1987,147542558208.888
+Mexico,1986,134556034672.991
+Mexico,1985,195241069482.077
+Mexico,1984,184230754105.394
+Mexico,1983,156167000432.994
+Mexico,1982,184602611609.517
+Mexico,1981,263797827860.494
+Mexico,1980,205577055465.993
+Mexico,1979,134531900898.926
+Mexico,1978,102648570299.117
+Mexico,1977,81912018783.5024
+Mexico,1976,88875923765.072
+Mexico,1975,88000000000.0
+import csv
+import re
+
+# Ruta al archivo generado por el primer script
+archivo_csv = "pib_mexico.csv"
+
+# Estructura para almacenar los datos validados
+datos_validos = []
+
+# Expresiones regulares para validar año (4 dígitos) y PIB (número decimal)
+patron_anio = r"^\d{4}$"
+patron_pib = r"^\d+(\.\d+)?$"
+
+# Lectura y validación de los datos
+with open(archivo_csv, newline='') as f:
+    lector = csv.DictReader(f)
+    for fila in lector:
+        anio = fila["anio"]
+        pib = fila["PIB_USD"]
+        
+        if re.match(patron_anio, anio) and re.match(patron_pib, pib):
+            datos_validos.append({
+                "anio": int(anio),
+                "PIB_USD": float(pib),
+                "pais": fila["pais"]
+            })
+
+# Verificación de éxito
+print(f"Se leyeron y validaron {len(datos_validos)} registros correctamente.")
+
+# Ejemplo de transformación (ordenar por año)
+datos_ordenados = sorted(datos_validos, key=lambda x: x["anio"])
+
+# Mostrar algunos datos
+for entrada in datos_ordenados[-5:]:
+    print(entrada)
