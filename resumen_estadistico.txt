@@ -1,0 +1,7 @@
+Resumen Estadístico del PIB de México
+--------------------------------------
+Total de registros: 49
+Media: 694,789,740,725.96 USD
+Mediana: 631,249,359,702.39 USD
+Moda: 1,789,114,434,843.46 USD
+Desviación estándar: 480,256,671,585.29 USD
